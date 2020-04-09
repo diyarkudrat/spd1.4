@@ -8,46 +8,56 @@ Output: 6, 2
 
 Solution:
 
-Find the length of the linked list.
-Divide the length by 2.
-If remainder return the two middle ones
+- Find the length of the linked list.
+- Divide the length by 2 to find the middle item
+- iterate through linked list until you reach the middle item
+- If remainder equals 1, return middle item
+- If remainder equals 0, return current node and the next node
+
+
 
 """
 
-Class Node(object):
+class Node(object):
 
-    Def __init__(self, data):
-    Self.data = data
-    Self.next = None
+    def __init__(self, data):
+        self.data = data
+        self.next = None
 
-Class LinkedList(object):
+class LinkedList(object):
 
-    Def length(self):
-    Count = 0
-    While self.head is not None:
-        Count += 1
-    Return count
+    def __init__(self, items=None):
 
-    Def return_middle_item(self):
-    Middle_item, remainder = divmod(LinkedList.length(), 2)
+        self.head = None
+        self.tail = None
+        # Append given items
+        if items is not None:
+            for item in items:
+                self.append(item)
 
+    def length(self):
+        count = 0
+        while self.head is not None:
+            count += 1
+        return count
 
-    Curr_node = self.head
-    Next_node = curr_node.next
-    While curr_node <= middle_item:
-        If curr_node == middle_item:
-            If remainder == 1:
-                Return curr_node
-            Else:
-                return curr_node + next_node
-        Else:
-            Curr_node = next_node
-            Next_node = next_node.next
+    def return_middle_item(self, length):
+        """ Time Complexity: O(n) because you are iterating through linked list with n-amount of items
+            Space Complexity: 0(n) because linkedlist has n-amount of items
 
-            # Divide count by 2
-            
-            # If remainder = 0, return 2 middle items
+        """
 
-            # while loop, curr_node <= middle index
+        middle_item, remainder = divmod(length, 2)  # Divide the length of linked list by 2 to get the middle index
 
-            # If linkedlist is even amount, return the middle index and the one after it.
+        curr_node = self.head  # initial variable to keep track of node at each iteration
+
+        while curr_node is not None:  # Iterate through linked list starting at head node
+
+            if curr_node == middle_item:    # if current node is at the middle index
+                if remainder == 1:          # if the linked list's length is an odd number
+                    return curr_node        # return the node
+                else:
+                    next_node = curr_node.next         # if linked list is even amount, return curr_node and the node after
+                    return curr_node + next_node
+            else:
+                curr_node = curr_node.next
