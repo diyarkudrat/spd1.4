@@ -61,3 +61,43 @@ class LinkedList(object):
                     return curr_node + next_node
             else:
                 curr_node = curr_node.next
+
+
+
+"""
+Problem: Given a string of text and a number k, find the k words in the given text that appear most frequently. 
+            Return the words in a new array sorted in decreasing order.
+
+Input: "hello there hello world hello there" k=2
+
+Output: ['there', 'hello']
+
+Solution:
+    - sort out each word in string
+    - create empty dictionary (key, value) = (word, count)
+    - Sort keys based on count in descending order and add to new array
+    - based on k, add the k amount of words into new array
+
+"""
+
+def frequent_k_words(str, k):
+    list_of_words = str.split()
+    
+    new_dict = {}
+    for word in list_of_words:
+        if word not in new_dict:
+            new_dict[word] = 1
+        else:
+            new_dict[word] += 1
+
+    list_of_keys = sorted(new_dict.items(), key=lambda item: item[1])
+
+    print(list_of_keys)
+
+    return list_of_keys[k+1::]
+
+
+
+str = "there hello hello world hello there diyar kudrat"
+
+print(frequent_k_words(str, 2))
